@@ -4,6 +4,7 @@ const getAll = require("./getAll");
 const getById = require("./getById");
 const deleteHero = require("./deleteHero");
 const addImages = require("./addImages");
+const deleteImage = require("./deleteImages");
 module.exports = {
   create,
   patch,
@@ -11,4 +12,5 @@ module.exports = {
   getById,
   deleteHero,
   addImages,
+  deleteImage,
 };

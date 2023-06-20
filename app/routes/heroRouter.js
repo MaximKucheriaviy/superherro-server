@@ -7,6 +7,7 @@ const {
   getById,
   deleteHero,
   addImages,
+  deleteImage,
 } = require("../controllers/superHeroControllers");
 const { uploader } = require("../middlewares");
 
@@ -17,6 +18,7 @@ router.get("/:id", getById);
 router.post("/", uploader.array("Image"), create);
 router.patch("/info/:patchField", patch);
 router.patch("/image", uploader.array("Image"), addImages);
+router.patch("/image/:id", deleteImage);
 router.delete("/:id", deleteHero);
 
 module.exports = router;
