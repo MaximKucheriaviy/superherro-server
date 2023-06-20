@@ -1,6 +1,6 @@
 const cloudinary = require("cloudinary").v2;
-const { log } = require("console");
 const path = require("path");
+const fs = require("fs/promises");
 
 cloudinary.config({
   cloud_name: "dfjnw7uur",
@@ -11,22 +11,26 @@ cloudinary.config({
 const upload = async (filePath) => {
   try {
     const result = await cloudinary.uploader.upload(
-      path.resolve(__dirname, "1687270977155plat1.png")
+      path.resolve(__dirname, filePath)
     );
+
+    await fs.unlink(filePath);
     return result;
   } catch (err) {
-    console.log("Errororrr");
     console.log(err);
   }
 };
+
+//url
+//secure_url
+//public_id
 
 const deleteResource = async (id) => {
   try {
-    const res = await cloudinary.api.delete_resources("s6riyz6pwg8xkkmyaasa");
-    console.log(res);
+    const res = await cloudinary.api.delete_resources(id);
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
 
-deleteResource();
+module.exports = { upload, deleteResource };

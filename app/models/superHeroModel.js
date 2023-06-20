@@ -1,5 +1,16 @@
 const { Schema, model } = require("mongoose");
 
+const ImageSchema = new Schema({
+  id: {
+    type: String,
+    require: true,
+  },
+  url: {
+    type: String,
+    require: true,
+  },
+});
+
 const herroSchema = new Schema({
   nickname: {
     type: String,
@@ -22,7 +33,7 @@ const herroSchema = new Schema({
     require: true,
   },
   Images: {
-    type: [String],
+    type: [ImageSchema],
   },
 });
 
