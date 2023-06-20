@@ -1,4 +1,5 @@
 const { Hero } = require("../../models");
+const createError = require("../../service/createError");
 
 const patchHero = async (req, res, next) => {
   try {
@@ -6,24 +7,36 @@ const patchHero = async (req, res, next) => {
     const { patchField } = req.params;
     const hero = await Hero.findById(id);
     if (!hero) {
-      throw new Error();
+      next(createError(400, `Hero not found`));
+      return;
     }
-    switch (patchField) {
-      case "nickname":
-        const valueNameResult = await Hero.findOne({ nickname: value });
-        if (valueNameResult) {
-          const error = new Error();
-          error.status = 400;
-          error.message = `Hero with nickname ${value} already exist`;
-          next(error);
-          return;
-        }
-        const updateResult = await Hero.findByIdAndUpdate(id, {
-          nickname: value,
-        });
-        if (!updateResult) {
-          throw new Error();
-        }
+    if (patchField === "nickname") {
+      const valueNameResult = await Hero.findOne({ nickname: value });
+      if (valueNameResult) {
+        next(createError(400, `Hero with nickname ${value} already exist`));
+        return;
+      }
+      const updateResult = await Hero.findByIdAndUpdate(id, {
+        nickname: value,
+      });
+      if (!updateResult) {
+        throw new Error();
+      }
+    } else if (
+      patchField === "origin_description" ||
+      patchField === "real_name" ||
+      patchField === "superpowers" ||
+      patchField === "catch_phrase"
+    ) {
+      const updateResult = await Hero.findByIdAndUpdate(id, {
+        [patchField]: value,
+      });
+      if (!updateResult) {
+        throw new Error();
+      }
+    } else {
+      next(createError(400, `Wrong update path`));
+      return;
     }
     res.status(201).json({
       message: "Hero updated",
@@ -36,3 +49,5 @@ const patchHero = async (req, res, next) => {
 };
 
 module.exports = patchHero;
+
+//Look, up in the sky, it's a bird, it's a plane, it's Superman!

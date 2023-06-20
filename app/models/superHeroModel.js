@@ -9,6 +9,10 @@ const herroSchema = new Schema({
     type: String,
     require: true,
   },
+  origin_description: {
+    type: String,
+    require: true,
+  },
   superpowers: {
     type: String,
     require: true,
