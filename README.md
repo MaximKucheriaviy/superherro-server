@@ -10,3 +10,4 @@ to start aplication:
    CLOUD_NAME = "cloudinary cloud name"
    API_KEY = "cloudinary api_key"
    API_SECRET = "cloudinary api_secret"
+3. run app width command "npm start"
