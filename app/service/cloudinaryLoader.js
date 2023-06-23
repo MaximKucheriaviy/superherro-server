@@ -3,10 +3,10 @@ const path = require("path");
 const fs = require("fs/promises");
 require("dotenv").config();
 
-const { CLODE_NAME, API_KEY, API_SECRET } = process.env;
+const { CLOUD_NAME, API_KEY, API_SECRET } = process.env;
 
 cloudinary.config({
-  cloud_name: CLODE_NAME,
+  cloud_name: CLOUD_NAME,
   api_key: API_KEY,
   api_secret: API_SECRET,
 });
