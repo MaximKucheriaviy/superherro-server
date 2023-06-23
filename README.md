@@ -1,5 +1,7 @@
 # server-phonebook
 
+Live server at https://superhero-server-we7h.onrender.com
+
 # to start aplication:
 
 1. run "npm i" to install dependencies
